@@ -1,0 +1,50 @@
+# Cross-match of the Horlaville et al. PTA-target galaxy sample.
+# Run with:  python examples/horlaville/run_horlaville.py examples/horlaville/config.yaml
+#
+# All relative file paths below resolve against data_dir.
+
+data_dir: /Users/sbs/Desktop/current_projects/horlaville/full_cross_match/source/
+match_radius_arcsec: 10
+on_error: raise          # stop on any failed query, like the original script
+
+# Horlaville-specific inputs (read by run_horlaville.py, not the generic CLI)
+horlaville:
+  sample_file: Horlaville_apjae6662t2_mrt_no_dupes.txt   # fixed-width MRT
+  radec_file: nameradec_fullsample.txt                   # name ra dec (deg)
+  outputs:
+    full: new_cross_matched_galaxies.csv
+    lda_gt2: TARGET_FULL_LDA+2new_cross_matched_galaxies.csv
+    lda_lt_m1: LDA-1new_cross_matched_galaxies.csv
+    lda_gt2_ku_only: TARGET_Ku_only_LDA+2new_cross_matched_galaxies.csv
+    lda_gt2_c_ku: TARGET_C+Ku_LDA+2new_cross_matched_galaxies.csv
+  # Known dual/recoiling AGN removed from all outputs
+  exclude:
+    - {name: NGC6338, reason: "dual AGN (Comerford et al.)"}
+    # - {name: NGC4162, reason: "recoiling AGN candidate (Lena et al.)"}
+    # - {name: NGC4278, reason: "recoiling AGN candidate (Lena et al.)"}
+    # - {name: NGC4486, reason: "recoiling AGN candidate (Lena et al.)"}
+    # - {name: NGC4636, reason: "recoiling AGN candidate (Lena et al.)"}
+    # - {name: NGC5846, reason: "recoiling AGN candidate (Lena et al.)"}
+
+catalogs:
+  - type: bigmac
+    file: BigMAC_maintable_DR0p9.csv
+  - type: bobcat
+    file: bobcat_pos_z_uniq.csv
+  - type: namelist
+    label: NylandATLAS
+    file: nyland+2016-atlas3D.txt
+    format: whitespace
+    description: "Y/N: in Nyland+2016 ATLAS3D radio sample"
+  - type: namelist
+    label: NylandMASSIVE
+    file: eden_H26_crossmatch_sorted.txt
+    format: fixed
+    start: 0
+    end: 13
+    description: "Y/N: in Nyland MASSIVE radio sample (eden_H26_crossmatch_sorted.txt)"
+  - type: rfc
+    file: rfc_2026b_cat.txt
+  - type: vlass
+  - type: first
+  - type: nvss

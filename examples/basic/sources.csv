@@ -1,0 +1,5 @@
+# Example input: name, RA and Dec in degrees (ICRS). Extra columns are carried through.
+name,ra,dec,z
+OJ287,133.70365,20.10851,0.306
+M87,187.70593,12.39112,0.0042
+3C66B,35.79739,42.99196,0.0215

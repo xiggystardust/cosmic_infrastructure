@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "radio-crossmatch"
+version = "0.1.0"
+description = "Modular cross-matching of extragalactic source lists against radio and binary-SMBH catalogs"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [{name = "Sarah Spolaor"}]
+requires-python = ">=3.9"
+dependencies = [
+    "numpy",
+    "pandas",
+    "astropy>=5.0",
+    "astroquery>=0.4.6",
+    "pyyaml",
+]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[project.scripts]
+radio-crossmatch = "radio_crossmatch.cli:main"
+
+[project.urls]
+Repository = "https://github.com/xiggystardust/cosmic_infrastructure"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["network: tests that query remote services (deselect with -m 'not network')"]

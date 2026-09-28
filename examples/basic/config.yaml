@@ -1,0 +1,34 @@
+# Minimal example:  radio-crossmatch examples/basic/config.yaml
+match_radius_arcsec: 10
+on_error: warn            # log failed queries and keep going
+
+input:
+  file: sources.csv
+  name_col: name
+  ra_col: ra
+  dec_col: dec
+  coord_unit: deg         # or "hourangle" for hh:mm:ss RA
+  resolve_missing: false  # true = look up blank positions by name (Sesame)
+
+output:
+  file: crossmatched.csv
+
+catalogs:
+  # Online (VizieR) -- no files needed
+  - type: nvss
+  - type: first
+  - type: vlass
+  - type: vizier          # any VizieR table, no code required
+    catalog: VIII/81B/sumss212
+    prefix: SUMSS
+    flux_column: St
+    dec_max: -30
+    radius_arcsec: 20
+
+  # Local files -- download them and uncomment
+  # - type: rfc
+  #   file: data/rfc_2026b_cat.txt
+  # - type: bigmac
+  #   file: data/BigMAC_maintable_DR0p9.csv
+  # - type: bobcat
+  #   file: data/bobcat_pos_z_uniq.csv
